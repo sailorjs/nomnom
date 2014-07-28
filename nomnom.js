@@ -1,4 +1,4 @@
-var _ = require("underscore")
+var _     = require("underscore");
 var chalk = require('chalk');
 
 function ArgParser(json) {
@@ -15,6 +15,16 @@ function ArgParser(json) {
     chalk.cyan('  ((__,__)|   ' + '() '                                                                       + '\n') +
     chalk.cyan('   |  __.\'/  ' + 'º'                                                                         + '\n') +
     chalk.cyan('   \'.(_).\'\'                                                                                    ');
+
+  this.message = function(str, code){
+
+    if (code !== undefined && code !== 0 )
+      console.log(chalk.red("error") + ": " +  str);
+    else
+      console.log(chalk.green("success") + ": " +  str);
+
+    process.exit(code || 0);
+  };
 }
 
 ArgParser.prototype = {
@@ -556,11 +566,11 @@ Opt = function(opt) {
     }
   });
   return opt;
-}
+};
 
 var createParser = function(package) {
   return new ArgParser(package);
-}
+};
 
 var nomnom = createParser();
 
