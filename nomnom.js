@@ -9,7 +9,7 @@ function ArgParser(json) {
     chalk.cyan('              ' + '\t.---------------------------------------.'                               + '\n') +
     chalk.cyan('       |\\    ' + '\t|             Sailor v' + this.meta.version + '             |  '         + '\n') +
     chalk.cyan('        \\\\  ' + '\t|                                       |  '                             + '\n') +
-    chalk.cyan('   .-"""-||   ' + '\t|        ' + this.meta.description + '      |  '                         + '\n') +
+    chalk.cyan('   .-"""-||   ' + '\t|       ' + this.meta.description + '       |  '                         + '\n') +
     chalk.cyan('  / _\\__ ||  ' + '\t|      https://github.com/sailorjs      |  '                             + '\n') +
     chalk.cyan('  |/____`||   ' + '\t\'---------------------------------------\''                             + '\n') +
     chalk.cyan('  ((__,__)|   ' + '() '                                                                       + '\n') +
