@@ -1,8 +1,8 @@
 var _     = require('underscore');
 var chalk = require('chalk');
 
-var _messageGenerator = function(str, type, padding, code){
-  console.log(type + padding + ": " + str);
+var _messageGenerator = function(str, type, code){
+  console.log(type + str);
   process.exit(code || 0);
 };
 
@@ -22,18 +22,18 @@ function ArgParser(json) {
     chalk.cyan('   \'.(_).\'\'                                                                                    ');
 
   this.message = {
-    success: function(str, padding) {
-      if (padding === undefined) padding = "";
-      _messageGenerator(str, chalk.green("sucess"), padding);
-    },
     info: function(str, padding) {
-      if (padding === undefined) padding = "";
-      _messageGenerator(str, chalk.blue("info"), padding);
+      if (padding === undefined) _messageGenerator(str, chalk.green("info: "));
+      else _messageGenerator(str, chalk.green("info", padding, ": "));
+    },
+    debug: function(str, padding) {
+      if (padding === undefined) _messageGenerator(str, chalk.debug("debug: "));
+      else _messageGenerator(str, chalk.debug("debug", padding, ": "));
     },
     error: function(str, code, padding) {
-      if (padding === undefined) padding = "";
       if (code === undefined) code = 1;
-      _messageGenerator(str, chalk.red("error"), padding, code);
+      if (padding === undefined) _messageGenerator(str, chalk.red("error: "), code);
+      else _messageGenerator(str, chalk.red("error", padding, ": "), code);
     }
   };
 }
@@ -175,7 +175,7 @@ ArgParser.prototype = {
         }
         this.command = command;
       } else if (arg) {
-        return this.print(chalk.red('error') + ": no such command '" + arg + "'. Type '"+this._script+" --help' for information.", 1);
+        return this.print(chalk.red('error: ') + "No such command '" + arg + "'. Type '"+this._script+" --help' for information.", 1);
       } else {
         // no command but command expected e.g. 'git -v'
         var helpStringBuilder = {
