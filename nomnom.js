@@ -1,5 +1,10 @@
-var _     = require("underscore");
+var _     = require('underscore');
 var chalk = require('chalk');
+
+var _messageGenerator = function(str, type, padding, code){
+  console.log(type + padding + ": " + str);
+  process.exit(code || 0);
+};
 
 function ArgParser(json) {
   this.meta = new Object(json);
@@ -16,14 +21,20 @@ function ArgParser(json) {
     chalk.cyan('   |  __.\'/  ' + 'º'                                                                         + '\n') +
     chalk.cyan('   \'.(_).\'\'                                                                                    ');
 
-  this.message = function(str, code){
-
-    if (code !== undefined && code !== 0 )
-      console.log(chalk.red("error") + ": " +  str);
-    else
-      console.log(chalk.green("success") + ": " +  str);
-
-    process.exit(code || 0);
+  this.message = {
+    success: function(str, padding) {
+      if (padding === undefined) padding = "";
+      _messageGenerator(str, chalk.green("sucess"), padding);
+    },
+    info: function(str, padding) {
+      if (padding === undefined) padding = "";
+      _messageGenerator(str, chalk.blue("info"), padding);
+    },
+    error: function(str, code, padding) {
+      if (padding === undefined) padding = "";
+      if (code === undefined) code = 1;
+      _messageGenerator(str, chalk.red("error"), padding, code);
+    }
   };
 }
 
