@@ -6,13 +6,19 @@ var _messageGenerator = function(str, type, code){
   process.exit(code || 0);
 };
 
+var _numberOfSpaces = function(version){
+  size = String(version).length;
+  if (size === 6) return '            ';
+  return '             ';
+};
+
 function ArgParser(json) {
   this.meta = new Object(json);
   this.commands = {}; // expected commands
   this.specs = {}; // option specifications
   this.logo =
     chalk.cyan('              ' + '\t.---------------------------------------.'                               + '\n') +
-    chalk.cyan('       |\\    ' + '\t|             Sailor v' + this.meta.version + '             |  '         + '\n') +
+    chalk.cyan('       |\\    ' + '\t|             Sailor v' + this.meta.version + _numberOfSpaces(this.meta.version) +'|  '         + '\n') +
     chalk.cyan('        \\\\  ' + '\t|                                       |  '                             + '\n') +
     chalk.cyan('   .-"""-||   ' + '\t|       ' + this.meta.description + '       |  '                         + '\n') +
     chalk.cyan('  / _\\__ ||  ' + '\t|      https://github.com/sailorjs      |  '                             + '\n') +
